@@ -1,6 +1,8 @@
 import React, { useContext } from 'react'
 import './Cartitems.css'
 import remove_icon from '../Assets/cart_cross_icon.png'
+import { ShopContext } from '../../Context/ShopContext'
+
 const Cartitems = () => {
     const {all_product,cartItems,removeFromCart} = useContext(ShopContext);
   return (
@@ -9,14 +11,15 @@ const Cartitems = () => {
             <p>Products</p>
             <p>Title</p>
             <p>Price</p>
+            <p>Quantity</p>
             <p>Total</p>
             <p>Remove</p>
         </div>
         <hr />
-       {all_product((e)=>{
+       {all_product.map((e)=>{
         if(cartItems[e.id]>0)
         {
-            return  <div>
+            return  (<div>
             <div className="cartitems-format">
                 <img src={e.image} alt="" className='carticon-product-icon' />
                 <p>{e.name}</p>
@@ -26,7 +29,7 @@ const Cartitems = () => {
                 <img src={remove_icon} onClick={()=>{removeFromCart(e.id)}} alt="" />
             </div>
             <hr />
-        </div>
+        </div>)
         }
        })}
     </div>
